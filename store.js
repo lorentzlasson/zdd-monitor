@@ -2,7 +2,8 @@ const fs = require('fs')
 
 const inFs = (filename) => {
 	return (data) => {
-		filename = `${__dirname}/logs/${filename}.json`
+		const dir = ensureDir(`${__dirname}/logs`)
+		filename = `${dir}/${filename}.json`
 		data = JSON.stringify(data)
 		return new Promise((resolve, reject) => {
 			fs.writeFile(filename, data, (err) => {
@@ -13,6 +14,16 @@ const inFs = (filename) => {
 			})
 		})
 	}
+}
+
+const ensureDir = (path) => {
+	try {
+		fs.accessSync(path)
+	}
+	catch (err) {
+		fs.mkdirSync(path)
+	}
+	return path
 }
 
 const inConsole = (data) => {
