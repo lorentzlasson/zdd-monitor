@@ -15,23 +15,19 @@ const file = fileName => {
 	}
 }
 
-const args = () => {
-	return {
-		url: argv.url,
-		freq: argv.freq,
-		store: argv.store,
-		timeout: argv.timeout
-	}
-}
+const args = () => ({
+	url: argv.url,
+	freq: argv.freq,
+	store: argv.store,
+	timeout: argv.timeout
+})
 
-const envs = env => {
-	return {
-		url: env.URL,
-		freq: parseInt(env.FREQ),
-		store: env.STORE,
-		timeout: parseInt(env.TIME_OUT)
-	}
-}
+const envs = env => ({
+	url: env.URL,
+	freq: parseInt(env.FREQ),
+	store: env.STORE,
+	timeout: parseInt(env.TIME_OUT)
+})
 
 const defaults = {
 	freq: 1000,
