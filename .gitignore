@@ -4,3 +4,7 @@ node_modules
 
 ### OSX ###
 *.DS_Store
+
+### Custom ###
+README.html
+logs
