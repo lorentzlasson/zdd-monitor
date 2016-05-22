@@ -59,9 +59,28 @@ const pretty = config => {
 	}
 }
 
+const validate = config => {
+	const reasons = []
+	if(!config.url) {
+		reasons.push('Url needs to be set.')
+	}
+
+	if(reasons.length > 0) {
+		const msg = reduceReasons(reasons)
+		throw new Error(msg)
+	}
+}
+
+const reduceReasons = reasons => {
+	return reasons.reduce((prev, current) => {
+		return `${prev} ${current}`
+	})
+}
+
 module.exports = {
 	create,
 	pretty,
+	validate,
 	file,
 	args,
 	envs,

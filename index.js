@@ -12,9 +12,7 @@ const init = () => {
 		config.defaults
 	)
 
-	if(!configs.url) {
-		faultyConfig('url needs to be set')
-	}
+	config.validate(configs)
 
 	const pretty = config.pretty(configs)
 	console.log(`${pretty.start}\n${pretty.storage}\n${pretty.timeout}\n`)
