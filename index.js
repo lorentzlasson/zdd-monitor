@@ -23,6 +23,9 @@ const init = () => {
 		case 'console':
 			storage = store.inConsole
 			break
+		case 'cosmos':
+			storage = store.inCosmos
+			break
 	}
 
 	const pretty = config.pretty(configs)
