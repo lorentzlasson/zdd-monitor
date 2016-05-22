@@ -5,7 +5,7 @@ let storage = store.inCosmos
 
 const init = () => {
 	const configs = config.create(
-		['url', 'freq', 'store', 'timeout'],
+		config.props,
 		config.args(),
 		config.envs(process.env),
 		config.file(__dirname +'/config.yml'),

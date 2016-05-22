@@ -2,6 +2,8 @@ const yaml = require('yamljs')
 const fs = require('fs')
 const argv = require('minimist')(process.argv.slice(2))
 
+const props = ['url', 'freq', 'store', 'timeout']
+
 const file = fileName => {
 	try {
 		fs.accessSync(fileName)
@@ -81,6 +83,7 @@ module.exports = {
 	create,
 	pretty,
 	validate,
+	props,
 	file,
 	args,
 	envs,
