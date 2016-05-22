@@ -11,8 +11,6 @@ const init = () => {
 		config.defaults
 	)
 
-	const pretty = config.pretty(configs)
-	console.log(`${pretty.start}\n${pretty.storage}\n${pretty.timeout}\n`)
 	const storages = ['fs', 'console', 'cosmos']
 	config.validate(configs, storages)
 
@@ -26,6 +24,9 @@ const init = () => {
 			storage = store.inConsole
 			break
 	}
+
+	const pretty = config.pretty(configs)
+	console.log(`${pretty.start}\n${pretty.storage}\n${pretty.timeout}\n`)
 
 	poller.poll(storage, configs.url, configs.freq, configs.timeout)
 }
