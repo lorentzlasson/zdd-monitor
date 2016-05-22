@@ -5,12 +5,12 @@ const ee = new EventEmitter()
 
 let killed = false
 
-const poll = (url, freq, timeout, count, errors) => {
 	if(killed) {
 		const result = formatResult(count, errors)
 		ee.emit('finish', result)
 		return
 	}
+const poll = (storage, url, freq, timeout) => {
 
 	count = util.ensureNum(count)
 	errors = util.ensureArray(errors)

@@ -1,7 +1,6 @@
 const poller = require('./poller')
 const store = require('./store')
 const config = require('./config')
-let storage = store.inCosmos
 
 const init = () => {
 	const configs = config.create(
@@ -17,6 +16,7 @@ const init = () => {
 	const pretty = config.pretty(configs)
 	console.log(`${pretty.start}\n${pretty.storage}\n${pretty.timeout}\n`)
 
+	let storage
 	switch(configs.store){
 		case 'fs':
 			const filename = `monitor_${new Date().toISOString()}`
@@ -27,10 +27,10 @@ const init = () => {
 			break
 	}
 
-	poller.poll(configs.url, configs.freq, configs.timeout)
+	poller.poll(storage, configs.url, configs.freq, configs.timeout)
 }
 
-poller.ee.on('finish', result => {
+poller.ee.on('finish', (storage, result) => {
 	storage(result)
 	.then((res) => {
 		return `stored\n${res || ''}`
