@@ -5,40 +5,42 @@ const ee = new EventEmitter()
 
 let killed = false
 
-	if(killed) {
-		const result = formatResult(count, errors)
-		ee.emit('finish', result)
-		return
-	}
 const poll = (storage, url, freq, timeout) => {
-
-	count = util.ensureNum(count)
-	errors = util.ensureArray(errors)
-
-	request({
-		url,
-		timeout,
-		method: 'GET'
-	})
-	.then(() => {
-		return 'ok'
-	})
-	.catch(err => {
-		if (unexpectedError(err)) {
-			console.log('Unexpected error occured, see result. Shutting down')
-			kill()
+	(function call(count, errors) {
+		if(killed) {
+			const result = formatResult(count, errors)
+			ee.emit('finish', storage, result)
+			return
 		}
-		err = errorInfo(err)
-		errors = errors.concat([err])
-		return 'fail'
-	})
-	.then(msg => {
-		count++
-		console.log(`count: ${count} - [${msg}]`)
-		setTimeout(() => {
-			poll(url, freq, timeout, count, errors)
-		}, freq)
-	})
+
+		count = util.ensureNum(count)
+		errors = util.ensureArray(errors)
+
+		request({
+			url,
+			timeout,
+			method: 'GET'
+		})
+		.then(() => {
+			return 'ok'
+		})
+		.catch(err => {
+			if (unexpectedError(err)) {
+				console.log('Unexpected error occured, see result. Shutting down')
+				kill()
+			}
+			err = errorInfo(err)
+			errors = errors.concat([err])
+			return 'fail'
+		})
+		.then(msg => {
+			count++
+			console.log(`count: ${count} - [${msg}]`)
+			setTimeout(() => {
+				call(count, errors)
+			}, freq)
+		})
+	})()
 }
 
 const unexpectedError = (err) => {
