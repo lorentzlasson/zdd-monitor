@@ -61,10 +61,14 @@ const pretty = config => {
 	}
 }
 
-const validate = config => {
+const validate = (config, storages) => {
 	const reasons = []
 	if(!config.url) {
 		reasons.push('Url needs to be set.')
+	}
+
+	if(!storages.includes(config.store)){
+		reasons.push('Requested storage method is not implemented')
 	}
 
 	if(reasons.length > 0) {

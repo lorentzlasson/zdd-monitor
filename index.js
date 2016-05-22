@@ -11,10 +11,10 @@ const init = () => {
 		config.defaults
 	)
 
-	config.validate(configs)
-
 	const pretty = config.pretty(configs)
 	console.log(`${pretty.start}\n${pretty.storage}\n${pretty.timeout}\n`)
+	const storages = ['fs', 'console', 'cosmos']
+	config.validate(configs, storages)
 
 	let storage
 	switch(configs.store){
