@@ -44,11 +44,6 @@ poller.ee.on('finish', result => {
 	})
 })
 
-const faultyConfig = (reason) => {
-	console.log(reason)
-	shutdown()
-}
-
 const shutdown = () => {
 	process.exit(0)
 }
