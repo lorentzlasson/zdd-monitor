@@ -31,7 +31,9 @@ const poll = (storage, url, freq, timeout) => {
 				console.log('Unexpected error occured, see result. Shutting down')
 				kill()
 			}
-			err = errorInfo(err)
+
+			const isoTime = moment(start).toISOString()
+			err = errorInfo(err, isoTime)
 			return errors.concat([err])
 		})
 		.then(errors => {
@@ -65,8 +67,8 @@ const formatResult = (count, errors) => {
 	}
 }
 
-const errorInfo = error => {
-	return error.message
+const errorInfo = (error, time) => {
+	return `[${time}] ${error.message}`
 }
 
 const kill = () => {
