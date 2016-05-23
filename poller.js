@@ -24,7 +24,7 @@ const poll = (storage, url, freq, timeout) => {
 			method: 'GET'
 		})
 		.then(() => {
-			return 'ok'
+			return errors
 		})
 		.catch(err => {
 			if (unexpectedError(err)) {
@@ -32,10 +32,9 @@ const poll = (storage, url, freq, timeout) => {
 				kill()
 			}
 			err = errorInfo(err)
-			errors = errors.concat([err])
-			return 'fail'
+			return errors.concat([err])
 		})
-		.then(msg => {
+		.then(errors => {
 			count++
 			const elpased = Date.now() - start
 			const time = prettyTime(start)
