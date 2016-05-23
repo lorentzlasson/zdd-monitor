@@ -34,13 +34,16 @@ const poll = (storage, url, freq, timeout) => {
 
 			const isoTime = moment(start).toISOString()
 			err = errorInfo(err, isoTime)
+			process.stdout.clearLine()
+			process.stdout.write(`\r${err}\n`)
+
 			return errors.concat([err])
 		})
 		.then(errors => {
 			count++
 			const elpased = Date.now() - start
 			const time = prettyTime(start)
-			console.log(`[${time}]: - [${msg}] - ${elpased}`)
+			process.stdout.write(`\r${count}) [${prettyStart}]: ${time} ms`)
 			setTimeout(() => {
 				call(count, errors)
 			}, freq)
