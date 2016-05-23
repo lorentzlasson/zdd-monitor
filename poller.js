@@ -41,8 +41,8 @@ const poll = (storage, url, freq, timeout) => {
 		})
 		.then(errors => {
 			count++
-			const elpased = Date.now() - start
-			const time = prettyTime(start)
+			const time = Date.now() - start
+			const prettyStart = prettyTime(start)
 			process.stdout.write(`\r${count}) [${prettyStart}]: ${time} ms`)
 			setTimeout(() => {
 				call(count, errors)
