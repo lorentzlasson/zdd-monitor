@@ -51,9 +51,7 @@ const poll = (storage, url, freq, timeout) => {
 	})()
 }
 
-const prettyTime = millis => {
-	return moment(millis).format('HH:mm:ss.SSS')
-}
+const prettyTime = millis => moment(millis).format('HH:mm:ss.SSS')
 
 const unexpectedError = (err) => {
 	if(err.cause) {
@@ -63,16 +61,12 @@ const unexpectedError = (err) => {
 	return false
 }
 
-const formatResult = (count, errors) => {
-	return {
-		count,
-		errors: util.prettyEmpty(errors, 'none')
-	}
-}
+const formatResult = (count, errors) => ({
+	count,
+	errors: util.prettyEmpty(errors, 'none')
+})
 
-const errorInfo = (error, time) => {
-	return `[${time}] ${error.message}`
-}
+const errorInfo = (error, time) => `[${time}] ${error.message}`
 
 const kill = () => {
 	killed = true

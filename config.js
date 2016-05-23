@@ -49,17 +49,11 @@ const create = (props, ...params) => {
 	return config
 }
 
-const pretty = config => {
-	const storage = `Will be stored in ${config.store}.`
-	const timeout = `Requests timeout after ${config.timeout} millis.`
-	const start = `Begins polling ${config.url} every ${config.freq} millis.`
-
-	return {
-		storage,
-		timeout,
-		start
-	}
-}
+const pretty = config => ({
+	storage: `Will be stored in ${config.store}.`,
+	timeout: `Requests timeout after ${config.timeout} millis.`,
+	start: `Begins polling ${config.url} every ${config.freq} millis.`
+})
 
 const validate = (config, storages) => {
 	const reasons = []
