@@ -2,6 +2,7 @@
   "name": "zdd-monitor",
   "dependencies": {
     "minimist": "^1.2.0",
+    "moment": "^2.13.0",
     "request-promise": "3.0.0",
     "yamljs": "0.2.7"
   },

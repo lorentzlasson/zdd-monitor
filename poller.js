@@ -1,5 +1,6 @@
 const request = require('request-promise')
 const EventEmitter = require('events').EventEmitter
+const moment = require('moment')
 const util = require('./util')
 const ee = new EventEmitter()
 
@@ -36,13 +37,18 @@ const poll = (storage, url, freq, timeout) => {
 		})
 		.then(msg => {
 			count++
-			const time = Date.now() - start
-			console.log(`count: ${count} - [${msg}] - ${time}`)
+			const elpased = Date.now() - start
+			const time = prettyTime(start)
+			console.log(`[${time}]: - [${msg}] - ${elpased}`)
 			setTimeout(() => {
 				call(count, errors)
 			}, freq)
 		})
 	})()
+}
+
+const prettyTime = millis => {
+	return moment(millis).format('HH:mm:ss.SSS')
 }
 
 const unexpectedError = (err) => {
