@@ -16,6 +16,7 @@ const poll = (storage, url, freq, timeout) => {
 		count = util.ensureNum(count)
 		errors = util.ensureArray(errors)
 
+		const start = Date.now()
 		request({
 			url,
 			timeout,
@@ -35,7 +36,8 @@ const poll = (storage, url, freq, timeout) => {
 		})
 		.then(msg => {
 			count++
-			console.log(`count: ${count} - [${msg}]`)
+			const time = Date.now() - start
+			console.log(`count: ${count} - [${msg}] - ${time}`)
 			setTimeout(() => {
 				call(count, errors)
 			}, freq)
